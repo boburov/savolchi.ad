@@ -11,10 +11,11 @@ import {
   Mail,
   FileQuestion,
   Trophy,
+  DoorClosed,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/savolchi.svg"; 
+import logo from "@/public/savolchi.svg";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
@@ -111,6 +112,14 @@ const Header = () => {
                 </div>
 
                 <nav className="flex flex-col text-gray-700">
+                  <Link
+                    href="/chanel/"
+                    className="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition"
+                    onClick={() => setOpen(false)}
+                  >
+                    <DoorClosed size={18} /> Kanal
+                  </Link>
+
                   <Link
                     href="/dashboard"
                     className="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition"

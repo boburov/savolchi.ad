@@ -16,7 +16,7 @@ interface Admin {
   id: number;
   name: string;
   email: string;
-  role: string; 
+  role: string;
   is_verifyed: boolean;
   channel?: Channel | null;
   subscription?: any;
@@ -46,8 +46,8 @@ const useAdminChannel = () => {
           router.push("/auth/login");
           return;
         }
-
         setAdmin(fullAdmin);
+        localStorage.setItem("chanel_id", fullAdmin.id);
         setChannel(fullAdmin.channel || null);
       } catch (err) {
         console.error("Admin channel verify error:", err);

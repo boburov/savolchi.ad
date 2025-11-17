@@ -3,6 +3,8 @@ export const API_ENDPOINT = {
   REGISTER: "/auth/admin/register",
   LOGIN: "/auth/admin/login",
   ALL: "/channel/all",
+  CREATE_CHANNEL: "/channel/create",
+  GET_CHANEL_BY_ID: (id: string) => `/channel/${id}`,
   VERIFY: "/auth/verify-email",
   VERIFY_TOKEN: "/auth/verify_token",
   QUESTIONS: "/questions",

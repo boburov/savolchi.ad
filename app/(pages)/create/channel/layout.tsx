@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Savolchi - Profile",
-  description: "Savolchi Test Platformasi Profile",
+  title: "hisob - yaratish",
+  description: "Savolchi admin panel - hisob yaratish",
   icons: {
     icon: "/savolchi.svg",
   },
