@@ -13,7 +13,6 @@ type FormDataType = {
 
 const Page = () => {
   const { admin } = useAdminChannel();
-  console.log(admin?.id);
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     bio: "",
@@ -48,7 +47,7 @@ const Page = () => {
   };
 
   const createChannel = async () => {
-    if (!formData.name || !formData.bio) {
+    if (!formData.name || !formData.bio || !admin?.id) {
       alert("Iltimos, nom, bio va adminId to'ldiring!");
       return;
     }
@@ -56,7 +55,7 @@ const Page = () => {
     const data = new FormData();
     data.append("name", formData.name);
     data.append("bio", formData.bio);
-    data.append("adminId", admin?.id);
+    data.append("adminId", String(admin.id));
     if (formData.profileImage) data.append("pfp", formData.profileImage); // <-- backend nomi bilan mos
     if (formData.coverImage) data.append("banner", formData.coverImage); // <-- backend nomi bilan mos
 
