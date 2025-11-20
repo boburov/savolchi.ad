@@ -1,7 +1,6 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
-import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,7 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+// Next.js uslubida SEO va Google site verification
+export const metadata: Metadata = {
   title: "Admin - Savolchi | Test tuzish ilovasi",
   description:
     "Savolchi - online test tuzish va boshqarish ilovasi. Har qanday test tuzish, o‘quvchilarga test yuborish va natijalarni kuzatish imkoniyati.",
@@ -32,26 +32,19 @@ export const metadata = {
     "online quiz",
     "test generator",
   ],
+  verification: {
+    google: "SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA", // Next.js 13+ metadata uslubi
+  },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <Head>
-        <meta
-          name="google-site-verification"
-          content="SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA"
-        />
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords.join(", ")} />
-        <link rel="icon" href={metadata.icons.icon} />
-        <title>{metadata.title}</title>
-      </Head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

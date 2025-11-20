@@ -80,7 +80,7 @@ const Page = () => {
       {/* Info Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full mt-5">
         <div className="bg-white/70 shadow-md rounded-xl p-5 text-center">
-          <p className="text-xl font-bold">{channel?.testsCount || 0}</p>
+          <p className="text-xl font-bold">{0}</p>
           <p className="text-gray-600">Joylangan testlar</p>
         </div>
 
