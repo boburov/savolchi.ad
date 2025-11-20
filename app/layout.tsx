@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ReactNode } from "react";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Admin - Savolchi | Test tuzish ilovasi",
   description:
     "Savolchi - online test tuzish va boshqarish ilovasi. Har qanday test tuzish, o‘quvchilarga test yuborish va natijalarni kuzatish imkoniyati.",
@@ -31,40 +32,21 @@ export const metadata: Metadata = {
     "online quiz",
     "test generator",
   ],
-  openGraph: {
-    title: "Admin - Savolchi | Test tuzish ilovasi",
-    description:
-      "Savolchi - online test tuzish va boshqarish ilovasi. Har qanday test tuzish, o‘quvchilarga test yuborish va natijalarni kuzatish imkoniyati.",
-    url: "https://yourdomain.com",
-    siteName: "Savolchi",
-    images: [
-      {
-        url: "/savolchi.svg",
-        width: 800,
-        height: 600,
-        alt: "Savolchi Logo",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Admin - Savolchi | Test tuzish ilovasi",
-    description:
-      "Savolchi - online test tuzish va boshqarish ilovasi. Har qanday test tuzish, o‘quvchilarga test yuborish va natijalarni kuzatish imkoniyati.",
-    images: ["/savolchi.svg"],
-  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <meta
-        name="google-site-verification"
-        content="SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA"
-      />
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA"
+        />
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords.join(", ")} />
+        <link rel="icon" href={metadata.icons.icon} />
+        <title>{metadata.title}</title>
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
