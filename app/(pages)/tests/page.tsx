@@ -1,7 +1,13 @@
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+"use client";
 
-export default page
+import useAdminChannel from "@/hooks/useAdminChannel";
+
+const page = () => {
+  const { admin } = useAdminChannel();
+
+  console.log(admin);
+
+  return <div>page</div>;
+};
+
+export default page;
