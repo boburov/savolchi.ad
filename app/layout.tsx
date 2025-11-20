@@ -12,7 +12,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Next.js uslubida SEO va Google site verification
 export const metadata: Metadata = {
   title: "Admin - Savolchi | Test tuzish ilovasi",
   description:
@@ -20,6 +19,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/savolchi.svg",
   },
+  applicationName: "Admin Savolchi",
   keywords: [
     "Savolchi",
     "test tuzish",
