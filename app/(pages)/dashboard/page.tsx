@@ -162,7 +162,7 @@ const DashboardPage = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto py-10 px-4 border-x  border-gray-300 min-h-[75vh] ">
+      <div className="container mx-auto py-10 px-4 border-x  border-gray-300 min-h-[80vh] ">
         {/* 🧑‍💻 Header */}
         <div className="mb-10">
           <h1 className="text-3xl font-semibold text-purple-700">

@@ -165,7 +165,7 @@ const SubscriptionPage = () => {
               <button
                 onClick={() => handleSubscribe(plan)}
                 disabled={loading && selected === plan.id}
-                className={`mt-8 w-full py-3 rounded-xl font-semibold text-white transition ${
+                className={`mt-8 w-full py-3 rounded-full font-semibold text-white transition ${
                   loading && selected === plan.id
                     ? "bg-purple-400"
                     : "bg-purple-600 hover:bg-purple-700"

@@ -45,7 +45,7 @@ const authService = {
       if (error.response && error.response.data) {
         throw new Error(error.response.data.error || "Kod noto‘g‘ri");
       }
-      console.log("Kod To'gri");
+      console.log(error);
     }
   },
 

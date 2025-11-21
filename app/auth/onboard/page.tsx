@@ -31,16 +31,17 @@ const OnboardPage = () => {
       }
     }
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const enteredCode = code.join("");
+    console.log(enteredCode);
     if (enteredCode.length < 6) {
       toast.error("Iltimos 6 xonali kod kiriting ❌");
       return;
     }
     setLoading(true);
-
+    
     try {
       await authService.verify(enteredCode);
       toast.success("Kod to‘g‘ri ✅");

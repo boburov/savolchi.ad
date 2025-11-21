@@ -42,7 +42,7 @@ const Header = () => {
 
   if (loading)
     return (
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
+      <header className="border-b border-gray-300 top-0 z-50">
         <div className="container py-3 flex items-center justify-between">
           <div className="flex items-center text-2xl font-bold text-[#1c1c1c] gap-3">
             <Image src={logo} alt="Savolchi logo" className="w-7 h-7" />
@@ -56,7 +56,7 @@ const Header = () => {
   if (!user) return null;
 
   return (
-    <header className="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
+    <header className="border-b border-gray-300">
       <div className="container py-3 flex items-center justify-between">
         {/* Logo */}
         <Link

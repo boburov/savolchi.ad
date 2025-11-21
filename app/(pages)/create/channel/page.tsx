@@ -2,7 +2,9 @@
 import channel from "@/app/api/service/channel.service";
 import useAdminChannel from "@/hooks/useAdminChannel";
 import { Plus } from "lucide-react";
-import { useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useState, ChangeEvent, useEffect } from "react";
+import { toast } from "react-toastify";
 
 type FormDataType = {
   name: string;
@@ -13,6 +15,7 @@ type FormDataType = {
 
 const Page = () => {
   const { admin } = useAdminChannel();
+  const router = useRouter();
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     bio: "",
@@ -46,6 +49,14 @@ const Page = () => {
     setFormData({ ...formData, [type]: file });
   };
 
+  // intela bilan html css js node js nest js python javascript boyicha texnik bilimlargizni oshiring
+
+  useEffect(() => {
+    if (admin?.subscription === null) {
+      router.push("/pricing");
+    }
+  }, []);
+
   const createChannel = async () => {
     if (!formData.name || !formData.bio || !admin?.id) {
       alert("Iltimos, nom, bio va adminId to'ldiring!");
@@ -61,8 +72,8 @@ const Page = () => {
 
     try {
       const res = await channel.create_chanel(data);
-      alert("Kanal muvaffaqiyatli yaratildi!");
-      console.log(res);
+      toast.success("Kanal muvaffaqiyatli yaratildi!");
+      router.push(`/profile`)
       setFormData({
         name: "",
         bio: "",

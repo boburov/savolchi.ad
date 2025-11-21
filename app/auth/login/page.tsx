@@ -33,6 +33,7 @@ const AuthPage = () => {
         router.push("/dashboard");
       } else {
         await authService.register(formData);
+        localStorage.setItem("onboardEmail", formData.email);
         toast.success("Ro'yxatdan o'tish muvaffaqiyatli 🎉");
         router.push("/auth/onboard");
       }

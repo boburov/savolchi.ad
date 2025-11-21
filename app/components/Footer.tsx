@@ -10,7 +10,10 @@ const Footer = () => {
         {/* Asosiy matn */}
         <p className="text-gray-700 text-sm">
           © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-purple-700">Boburov Shukurullo</span> – Frontend Developer & Creator of{" "}
+          <span className="font-semibold text-purple-700">
+            Boburov Shukurullo
+          </span>{" "}
+          – Frontend Developer & Creator of{" "}
           <span className="font-medium text-purple-600">Savolchi Platform</span>
         </p>
 
@@ -47,12 +50,6 @@ const Footer = () => {
             <Globe size={20} />
           </Link>
         </div>
-
-        {/* Texnik info */}
-        <p className="mt-2 text-xs text-gray-400">
-          Built with ❤️ using <span className="font-semibold text-purple-600">Next.js</span> &{" "}
-          <span className="font-semibold text-purple-600">TailwindCSS</span>
-        </p>
       </div>
     </footer>
   );
