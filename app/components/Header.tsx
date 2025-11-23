@@ -121,7 +121,7 @@ const Header = () => {
 
                 <nav className="flex flex-col text-gray-700">
                   <Link
-                    href="/chanel/"
+                    href="/channel"
                     className="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition"
                     onClick={() => setOpen(false)}
                   >
@@ -134,14 +134,6 @@ const Header = () => {
                     onClick={() => setOpen(false)}
                   >
                     <LayoutDashboard size={18} /> Dashboard
-                  </Link>
-
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition"
-                    onClick={() => setOpen(false)}
-                  >
-                    <User size={18} /> Profil
                   </Link>
 
                   <Link
