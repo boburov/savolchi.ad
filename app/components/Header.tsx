@@ -12,6 +12,7 @@ import {
   FileQuestion,
   Trophy,
   DoorClosed,
+  Gift,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -79,7 +80,14 @@ const Header = () => {
             href="/leaderboard"
             className="flex items-center gap-1 hover:text-purple-700 transition"
           >
-            <Trophy size={18} /> Reyting
+            <Trophy size={18} /> Foydalanuvchilar
+          </Link>
+
+          <Link
+            href="/pricing"
+            className="flex items-center gap-1 hover:text-purple-700 transition"
+          >
+            <Gift size={18} /> Obuna
           </Link>
 
           <Link

@@ -9,7 +9,14 @@ interface Channel {
   banner?: string;
   bio?: string;
   createdAt: string;
-  subjects: [];
+  subjects: Subject[];
+}
+
+interface Subject {
+  id: number;
+  name: string;
+  channelId: number;
+  createdAt: string;
 }
 
 interface Admin {

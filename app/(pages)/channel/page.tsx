@@ -107,7 +107,7 @@ const Page = () => {
           <ul className="list-disc list-inside">
             {channel?.subjects.map((sub, idx) => (
               <li key={idx} className="text-gray-700">
-                {sub}
+                salom
               </li>
             ))}
           </ul>

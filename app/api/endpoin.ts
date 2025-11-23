@@ -26,11 +26,6 @@ export const API_ENDPOINT = {
   UPDATE_TEST: (id: string) => `/test/update/${id}`,
   DELETE_TEST: (id: string) => `/test/delete/${id}`,
 
-  // Questions (agar alohida bo‘lsa)
-  QUESTIONS: "/questions",
-  ASK_QUESTION: "/questions/ask",
-  ANSWER_QUESTION: (questionId: string) => `/questions/${questionId}/answer`,
-
   // Users
   USER_PROFILE: (userId: string) => `/user/${userId}`,
 };
