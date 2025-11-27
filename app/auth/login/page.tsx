@@ -28,7 +28,8 @@ const AuthPage = () => {
     setLoading(true);
     try {
       if (isLogin) {
-        await authService.login(formData.email, formData.password);
+        const res = await authService.login(formData.email, formData.password);
+        console.log("Login response:", res);
         toast.success("Kirish muvaffaqiyatli ✅");
         router.push("/dashboard");
       } else {

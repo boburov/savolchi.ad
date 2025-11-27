@@ -314,7 +314,7 @@ const SubscriptionPage = () => {
                     transition-all duration-300 shadow-lg hover:shadow-xl
                     transform hover:scale-[1.02] active:scale-[0.98]
                     ${loading && selected === plan.id ? "opacity-50 cursor-not-allowed" : ""}
-                    ${isBestValue ? 'from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600' : ''}
+                    ${isBestValue ? 'from-blue-500 to-purple-500 hover:from-yellow-600 hover:to-orange-600' : ''}
                   `}
                 >
                   {loading && selected === plan.id ? (
@@ -323,7 +323,7 @@ const SubscriptionPage = () => {
                       Aktivlanmoqda...
                     </span>
                   ) : (
-                    "Obuna {`bo'lish`}"
+                    "Obuna bo'lish"
                   )}
                 </button>
               </div>

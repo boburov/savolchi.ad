@@ -4,63 +4,65 @@ import { API_ENDPOINT } from "../endpoin";
 const authService = {
   login: async (email: string, password: string) => {
     const res = await api.post(API_ENDPOINT.LOGIN, { email, password });
-    const { token, refreshToken } = res.data;
-    if (token && refreshToken) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("refreshToken", refreshToken);
-    }
+    const { token, refreshToken, user } = res.data;
+
+    if (token) localStorage.setItem("token", token);
+    if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+    if (user) localStorage.setItem("user", JSON.stringify(user));
+
     return res.data;
   },
 
-  register: async (userData: any) => {
-    try {
-      const res = await api.post(API_ENDPOINT.REGISTER, userData);
-      const { token, refreshToken, email } = res.data;
+  register: async (userData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    const res = await api.post(API_ENDPOINT.REGISTER, userData);
+    const { email } = res.data;
 
-      if (token && refreshToken) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("refreshToken", refreshToken);
-      }
+    if (email) localStorage.setItem("onboardEmail", email);
+    if (res.data.userId) localStorage.setItem("pendingUserId", res.data.userId);
 
-      if (email) localStorage.setItem("onboardEmail", email);
-
-      return res.data;
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        throw new Error(
-          error.response.data.error || "Ro'yxatdan o'tishda xato"
-        );
-      }
-      throw new Error("Tarmoqqa ulanishda xato");
-    }
+    return res.data;
   },
 
   verify: async (code: string) => {
-    try {
-      const email = localStorage.getItem("onboardEmail");
-      if (!email) throw new Error("Email topilmadi");
-      const res = await api.post(API_ENDPOINT.VERIFY, { email, code });
-      return res.data;
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        throw new Error(error.response.data.error || "Kod noto‘g‘ri");
-      }
-      console.log(error);
-    }
+    const email = localStorage.getItem("onboardEmail");
+
+    const res = await api.post(API_ENDPOINT.VERIFY, {
+      email,
+      code,
+    });
+
+    // Verify muvaffaqiyatli bo'lsa tokenlar qaytadi
+    const { token, refreshToken, user } = res.data;
+    if (token) localStorage.setItem("token", token);
+    if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+    if (user) localStorage.setItem("user", JSON.stringify(user));
+
+    // Tozalash
+    localStorage.removeItem("onboardEmail");
+    localStorage.removeItem("pendingUserId");
+
+    return res.data;
   },
 
-  verify_token: async (token: string) => {
-    try {
-      const res = await api.post(API_ENDPOINT.VERIFY_TOKEN, { token });
-      return res.data;
-    } catch (error) {
-      console.log(error);
-    }
+  verifyToken: async (token: string) => {
+    return await api.post(API_ENDPOINT.VERIFY_TOKEN, { token });
   },
 
   getCurrentUser: async () => {
-    const res = await api.get("/auth/me");
+    const res = await api.get("/user/me"); // yoki backendda /auth/me bo'lsa shuni ishlat
     return res.data;
+  },
+
+  logout: () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
+    localStorage.removeItem("onboardEmail");
+    localStorage.removeItem("pendingUserId");
   },
 };
 

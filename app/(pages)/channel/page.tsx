@@ -10,7 +10,6 @@ const Page = () => {
 
   console.log("Admin ma'lumotlari:", admin);
 
-  // 1) Obuna yo'q
   if (!admin?.subscription) {
     return (
       <section className="w-full min-h-[75vh] flex flex-col items-center justify-center px-4">
@@ -38,13 +37,12 @@ const Page = () => {
     );
   }
 
-  // 2) Obuna bor, kanal yo'q
   if (admin.subscription && !admin?.channel) {
     return (
       <section className="w-full min-h-[75vh] flex flex-col items-center justify-center px-4">
         <div className="max-w-md text-center">
-          <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Edit3 className="text-blue-600" size={32} strokeWidth={2.5} />
+          <div className="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Edit3 className="text-purple-600" size={32} strokeWidth={2.5} />
           </div>
           <h2 className="font-bold text-2xl md:text-3xl mb-4 text-gray-800">
             Kanal yaratish
@@ -55,7 +53,7 @@ const Page = () => {
           </p>
           <button
             onClick={() => router.push("/create/channel")}
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl flex items-center gap-3 px-6 py-3.5 transition-all duration-200 shadow-md hover:shadow-lg mx-auto"
+            className="bg-purple-600 hover:bg-purple-700 text-white rounded-full flex items-center gap-3 px-6 py-3.5 transition-all duration-200 shadow-md hover:shadow-lg mx-auto"
           >
             <Plus strokeWidth={3} size={20} />
             Kanal Yaratish
@@ -65,13 +63,11 @@ const Page = () => {
     );
   }
 
-  // 3) Obuna va kanal mavjud
   const channel = admin.channel;
   const subscription = admin.subscription;
 
-  // Sana formatlash
-  const endDate = subscription?.endDate
-    ? new Date(subscription.endDate).toLocaleDateString("uz-UZ")
+  const endDate = subscription?.expiresAt
+    ? new Date(subscription.expiresAt).toLocaleDateString("uz-UZ")
     : "Noma'lum";
 
   return (
@@ -85,7 +81,7 @@ const Page = () => {
             className="w-full h-48 md:h-56 object-cover"
           />
         ) : (
-          <div className="w-full h-48 md:h-56 bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+          <div className="w-full h-48 md:h-56 bg-gradient-to-r from-purple-500 to-purple-500 flex items-center justify-center">
             <span className="text-white text-lg font-medium">
               Kanal Banneri
             </span>
@@ -147,8 +143,8 @@ const Page = () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 text-center hover:shadow-md transition-shadow">
-          <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Users className="text-blue-600" size={20} />
+          <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Users className="text-purple-600" size={20} />
           </div>
           <p className="text-2xl font-bold text-gray-800">
             {channel?.subjects.length || 0}

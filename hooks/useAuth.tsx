@@ -23,8 +23,10 @@ const useAuth = () => {
       }
 
       try {
-        const fullUser = await authService.verify_token(token);
-        setUser(fullUser);
+        const fullUser = await authService.verifyToken(token);
+        console.log(fullUser.data);
+        
+        setUser(fullUser.data);
       } catch (err) {
         console.error("Token verify error:", err);
         localStorage.removeItem("token");

@@ -35,6 +35,8 @@ interface Comment {
 
 const DashboardPage = () => {
   const { user } = useAuth();
+  console.log(user);
+  
   const [selectedSchool, setSelectedSchool] = useState<SchoolType | null>(null);
   const [unlockedSchools, setUnlockedSchools] = useState<number[]>([]);
   const [passwordInput, setPasswordInput] = useState("");

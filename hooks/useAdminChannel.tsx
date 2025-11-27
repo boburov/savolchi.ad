@@ -19,14 +19,19 @@ interface Subject {
   createdAt: string;
 }
 
+interface Subscription {
+  type: string;
+  expiresAt: string;
+}
+
 interface Admin {
   id: number;
   name: string;
   email: string;
   role: string;
+  subscription: Subscription;
   is_verifyed: boolean;
   channel?: Channel | null;
-  subscription?: any;
 }
 
 const useAdminChannel = () => {
@@ -46,16 +51,16 @@ const useAdminChannel = () => {
       }
 
       try {
-        const fullAdmin = await authService.verify_token(token);
+        const fullAdmin = await authService.verifyToken(token);
 
         // faqat ADMIN bo‘lsa davom etadi
-        if (fullAdmin.role !== "ADMIN") {
+        if (fullAdmin.data.role !== "ADMIN") {
           router.push("/auth/login");
           return;
         }
-        setAdmin(fullAdmin);
-        localStorage.setItem("chanel_id", fullAdmin.id);
-        setChannel(fullAdmin.channel || null);
+        setAdmin(fullAdmin.data);
+        localStorage.setItem("chanel_id", fullAdmin.data.id);
+        setChannel(fullAdmin.data.channel || null);
       } catch (err) {
         console.error("Admin channel verify error:", err);
         localStorage.removeItem("token");
