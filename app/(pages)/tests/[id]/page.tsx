@@ -46,7 +46,9 @@ const Page = () => {
       return;
     }
 
-    const filledOptions = options.filter((o) => o.text.trim().length > 1);
+    const filledOptions = options.filter((o) => o.text.trim().length);
+    console.log(filledOptions);
+    
     if (filledOptions.length < 2) {
       toast.warning("Kamida 2 ta to‘ldirilgan variant bo‘lishi kerak!");
       return;
@@ -95,7 +97,7 @@ const Page = () => {
 
         <section className="p-6 mt-6">
           <h1 className="text-2xl font-bold flex items-center gap-2 leading-2 drop-shadow">
-            {channel?.name} {admin?.is_verifyed ? <BadgeCheck /> : ""}
+            {channel?.name} {admin?.isVerified ? <BadgeCheck /> : ""}
           </h1>
 
           <span className="text-purple-100 text-xs mb-2 inline-block opacity-90">
@@ -109,7 +111,7 @@ const Page = () => {
           </p>
 
           <span className="font-semibold text-white drop-shadow">
-            Subjects: {channel?.subjects?.length}
+            Subjects: {channel?.subject?.length}
           </span>
         </section>
       </section>

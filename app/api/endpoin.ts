@@ -8,23 +8,31 @@ export const API_ENDPOINT = {
   VERIFY_TOKEN: "/auth/verify/admin/token",
 
   // Channels
-  ALL_CHANNELS: "/channel/all",
-  CREATE_CHANNEL: "/channel/create",
-  GET_CHANNEL_BY_ID: (id: string) => `/channel/${id}`,
+  ALL_CHANNELS: "/chanel/all",
+  CREATE_CHANNEL: (id: string) => `/chanel/${id}`,
+  GET_CHANNEL_BY_ID: (id: string) => `/chanel/${id}`,
+  UPDATE_CHANNEL: (id: string) => ``,
+  DELETE_CHANNEL: (id: string) => ``,
 
   // Subjects
-  ALL_SUBJECTS: "/subject/all",
-  CREATE_SUBJECT: "/subject/create",
+  ALL_SUBJECTS: "/subject",
+  CREATE_SUBJECT: "/subject",
   GET_SUBJECT_BY_ID: (id: string) => `/subject/${id}`,
-  UPDATE_SUBJECT: (id: string) => `/subject/update/${id}`,
-  DELETE_SUBJECT: (id: string) => `/subject/delete/${id}`,
+  UPDATE_SUBJECT: (id: string) => `/subject/${id}`,
+  DELETE_SUBJECT: (id: string) => `/subject/${id}`,
+
+  // Subject by Channel
+  SUBJECT_BY_CHANNEL: (channelId: string) => `/subject/channel/${channelId}`,
+
+  // Tests by Channel
+  TEST_BY_CHANNEL: (channelId: string) => `/subject/channel/${channelId}/test`,
 
   // Tests
-  ALL_TESTS_BY_SUBJECT: (subjectId: string) => `/test/subject/${subjectId}`,
-  CREATE_TEST: "/test/create",
-  GET_TEST_BY_ID: (id: string) => `/test/${id}`,
-  UPDATE_TEST: (id: string) => `/test/update/${id}`,
-  DELETE_TEST: (id: string) => `/test/delete/${id}`,
+  ALL_TESTS: "/tests/all",
+  CREATE_TEST: "/tests/create",
+  GET_TEST_BY_ID: (id: string) => `/tests/${id}`,
+  UPDATE_TEST: (id: string) => `/tests/edit/${id}`,
+  DELETE_TEST: (id: string) => `/tests/${id}/delete`,
 
   // Users
   USER_PROFILE: (userId: string) => `/user/${userId}`,

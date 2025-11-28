@@ -137,7 +137,7 @@ const Page = () => {
             <FileText className="text-purple-600" size={20} />
           </div>
           <p className="text-2xl font-bold text-gray-800">
-            {channel?.subjects.length || 0}
+            {channel?.subject.length || 0}
           </p>
           <p className="text-gray-600 text-sm">Joylangan testlar</p>
         </div>
@@ -147,7 +147,7 @@ const Page = () => {
             <Users className="text-purple-600" size={20} />
           </div>
           <p className="text-2xl font-bold text-gray-800">
-            {channel?.subjects.length || 0}
+            {channel?.subject.length || 0}
           </p>
           <p className="text-gray-600 text-sm">Obunachilar</p>
         </div>

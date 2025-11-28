@@ -2,25 +2,39 @@ import api from "../axios";
 import { API_ENDPOINT } from "../endpoin";
 
 const subject = {
-  createSubject: async (data: { name: string; channelId: string }) => {
-    try {
-      const response = await api.post(API_ENDPOINT.CREATE_SUBJECT, data);
+  getAll: async () => {
+    const res = await api.get(API_ENDPOINT.ALL_SUBJECTS);
+    return res.data;
+  },
 
-      if (!response.status || response.status !== 200) {
-        console.error("API Error:", response.data);
-        throw new Error(response.data.message || "Failed to create subject");
-      }
+  getById: async (id: string) => {
+    const res = await api.get(API_ENDPOINT.GET_SUBJECT_BY_ID(id));
+    return res.data;
+  },
 
-      return response.data;
-    } catch (error: any) {
-      console.error(error.response?.data || error.message.error);
+  getByChannel: async (channelId: string) => {
+    const res = await api.get(API_ENDPOINT.SUBJECT_BY_CHANNEL(channelId));
+    return res.data;
+  },
 
-      throw new Error(
-        error.response?.data?.message ||
-          error.message ||
-          "Subject yaratishda xatolik yuz berdi"
-      );
-    }
+  getTestsByChannel: async (channelId: string) => {
+    const res = await api.get(API_ENDPOINT.TEST_BY_CHANNEL(channelId));
+    return res.data;
+  },
+
+  create: async (data: { name: string; channelId: string }) => {
+    const res = await api.post(API_ENDPOINT.CREATE_SUBJECT, data);
+    return res.data;
+  },
+
+  update: async (id: string, data: { name?: string }) => {
+    const res = await api.patch(API_ENDPOINT.UPDATE_SUBJECT(id), data);
+    return res.data;
+  },
+
+  delete: async (id: string) => {
+    const res = await api.delete(API_ENDPOINT.DELETE_SUBJECT(id));
+    return res.data;
   },
 };
 

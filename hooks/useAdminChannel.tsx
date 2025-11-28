@@ -9,7 +9,7 @@ interface Channel {
   banner?: string;
   bio?: string;
   createdAt: string;
-  subjects: Subject[];
+  subject: Subject[];
 }
 
 interface Subject {
@@ -21,6 +21,9 @@ interface Subject {
 
 interface Subscription {
   type: string;
+  limit: number;
+  active: boolean;
+  subjectLimit: number;
   expiresAt: string;
 }
 
@@ -30,7 +33,7 @@ interface Admin {
   email: string;
   role: string;
   subscription: Subscription;
-  is_verifyed: boolean;
+  isVerified: boolean;
   channel?: Channel | null;
 }
 

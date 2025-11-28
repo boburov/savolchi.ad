@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "test generator",
   ],
   verification: {
-    google: "SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA", // Next.js 13+ metadata uslubi
+    google: "SUekuXNlaNhW_wY6SHvAPG0u7YIva8OfSXytYvps4WA",
   },
 };
 
@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased montserrat-regular">{children}</body>
+      <body className="montserrat-600 tracking-wider">{children}</body>
     </html>
   );
 }

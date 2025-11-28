@@ -1,4 +1,5 @@
 "use client";
+
 import channel from "@/app/api/service/channel.service";
 import useAdminChannel from "@/hooks/useAdminChannel";
 import { Plus } from "lucide-react";
@@ -16,6 +17,7 @@ type FormDataType = {
 const Page = () => {
   const { admin } = useAdminChannel();
   const router = useRouter();
+
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     bio: "",
@@ -23,57 +25,71 @@ const Page = () => {
     coverImage: null,
   });
 
-  const handleFileChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    type: "profileImage" | "coverImage"
-  ) => {
-    const file = e.target.files?.[0] || null;
-    if (!file) return;
-
-    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
-    if (!allowedTypes.includes(file.type)) {
-      alert("Faqat PNG, JPG yoki WEBP formatidagi fayllar ruxsat etiladi!");
-      return;
-    }
-
-    const maxSize = type === "profileImage" ? 5 * 1024 * 1024 : 8 * 1024 * 1024;
-    if (file.size > maxSize) {
-      alert(
-        `Tanlangan fayl juda katta! Maksimal ${
-          type === "profileImage" ? "5MB" : "8MB"
-        } ruxsat etiladi.`
-      );
-      return;
-    }
-
-    setFormData({ ...formData, [type]: file });
-  };
-
-  // intela bilan html css js node js nest js python javascript boyicha texnik bilimlargizni oshiring
-
   useEffect(() => {
     if (admin?.subscription === null) {
       router.push("/pricing");
     }
   }, []);
 
+  const handleFileChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    type: "profileImage" | "coverImage"
+  ) => {
+    const file = e.target.files?.[0] || null;
+
+    if (!file) return;
+
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Faqat PNG, JPG, JPEG yoki WEBP formatiga ruxsat!");
+      return;
+    }
+
+    const maxSize = type === "profileImage" ? 5 * 1024 * 1024 : 8 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      toast.error(
+        type === "profileImage"
+          ? "Profil rasm maksimal 5MB bo‘lishi kerak!"
+          : "Cover rasm maksimal 8MB bo‘lishi kerak!"
+      );
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [type]: file }));
+  };
+
   const createChannel = async () => {
-    if (!formData.name || !formData.bio || !admin?.id) {
-      alert("Iltimos, nom, bio va adminId to'ldiring!");
+    if (!formData.name.trim()) {
+      toast.error("Kanal nomi bo‘sh bo‘lmasligi kerak!");
+      return;
+    }
+
+    if (formData.bio.trim().length < 30) {
+      toast.error("Bio minimal 30 ta belgidan iborat bo‘lishi kerak!");
+      return;
+    }
+
+    if (!admin?.id) {
+      toast.error("Admin ID topilmadi!");
       return;
     }
 
     const data = new FormData();
     data.append("name", formData.name);
     data.append("bio", formData.bio);
-    data.append("adminId", String(admin.id));
-    if (formData.profileImage) data.append("pfp", formData.profileImage); // <-- backend nomi bilan mos
-    if (formData.coverImage) data.append("banner", formData.coverImage); // <-- backend nomi bilan mos
+    data.append("adminId", admin.id.toString());
+    if (formData.profileImage) data.append("pfp", formData.profileImage);
+    if (formData.coverImage) data.append("banner", formData.coverImage);
 
     try {
-      const res = await channel.create_chanel(data);
+      await channel.create_chanel(data, admin.id.toString());
+
       toast.success("Kanal muvaffaqiyatli yaratildi!");
-      router.push(`/profile`)
+
+      router.push("/profile");
+
       setFormData({
         name: "",
         bio: "",
@@ -81,8 +97,8 @@ const Page = () => {
         coverImage: null,
       });
     } catch (error) {
-      console.error(error);
-      alert("Kanal yaratishda xatolik yuz berdi!");
+      toast.error("Kanal yaratishda xatolik!");
+      console.log(error);
     }
   };
 
@@ -103,13 +119,14 @@ const Page = () => {
           />
 
           <textarea
-            placeholder="Kanal Biosi ..."
+            placeholder="Kanal Biosi (kamida 30 ta belgi)..."
             value={formData.bio}
             onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
             className="border border-purple-300 rounded-2xl px-5 py-3 focus:ring-2 focus:ring-purple-400 focus:outline-none transition resize-none h-24"
           />
 
-          <label className="flex flex-col items-center justify-center border-2 border-dashed border-purple-300 rounded-2xl py-5 cursor-pointer hover:border-purple-500 hover:bg-purple-50 transition">
+          {/* PROFILE IMAGE */}
+          <label className="flex flex-col items-center justify-center border-2 border-dashed border-purple-300 rounded-2xl py-5 cursor-pointer transition hover:border-purple-500 hover:bg-purple-50">
             <span className="text-purple-500">
               {formData.profileImage
                 ? formData.profileImage.name
@@ -123,7 +140,8 @@ const Page = () => {
             />
           </label>
 
-          <label className="flex flex-col items-center justify-center border-2 border-dashed border-purple-300 rounded-2xl py-5 cursor-pointer hover:border-purple-500 hover:bg-purple-50 transition">
+          {/* COVER IMAGE */}
+          <label className="flex flex-col items-center justify-center border-2 border-dashed border-purple-300 rounded-2xl py-5 cursor-pointer transition hover:border-purple-500 hover:bg-purple-50">
             <span className="text-purple-500">
               {formData.coverImage
                 ? formData.coverImage.name

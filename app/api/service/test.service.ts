@@ -10,23 +10,18 @@ const testService = {
     try {
       const response = await api.post(API_ENDPOINT.CREATE_TEST, data);
 
-      if (!response.status || response.status !== 200) {
-        throw new Error("Failed to create test");
-      }
-
       return response.data;
     } catch (error: any) {
-      console.error("Test yaratishda xatolik:", error.response?.data || error.message);
-      throw new Error(
-        error.response?.data?.error ||
-          error.message ||
-          "Test yaratishda xatolik yuz berdi"
+      console.error(
+        "Test yaratishda xatolik:",
+        error.response?.data || error.message
       );
+      throw new Error(error || "Test yaratishda xatolik yuz berdi");
     }
   },
 
   getTestsBySubject: async (subjectId: string) => {
-    const res = await api.get(API_ENDPOINT.ALL_TESTS_BY_SUBJECT(subjectId));
+    const res = await api.get(API_ENDPOINT.GET_TEST_BY_ID(subjectId));
     return res.data;
   },
 
