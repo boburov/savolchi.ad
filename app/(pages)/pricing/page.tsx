@@ -36,8 +36,8 @@ const plans = [
       "4 ta bo'lim",
       "Premium test tizimi",
       "24/7 qo'llab-quvvatlash",
-      "Asosiy xususiyatlar"
-    ]
+      "Asosiy xususiyatlar",
+    ],
   },
   {
     id: "2",
@@ -56,8 +56,8 @@ const plans = [
       "Premium test tizimi",
       "24/7 qo'llab-quvvatlash",
       "Barcha xususiyatlar",
-      "3 oy davomida tejash"
-    ]
+      "3 oy davomida tejash",
+    ],
   },
   {
     id: "3",
@@ -78,8 +78,8 @@ const plans = [
       "24/7 qo'llab-quvvatlash",
       "Barcha xususiyatlar",
       "6 oy davomida tejash",
-      "Avtomatik yangilanish"
-    ]
+      "Avtomatik yangilanish",
+    ],
   },
   {
     id: "4",
@@ -101,8 +101,8 @@ const plans = [
       "Barcha xususiyatlar",
       "1 yil davomida tejash",
       "Avtomatik yangilanish",
-      "Maxsus qo'llab-quvvatlash"
-    ]
+      "Maxsus qo'llab-quvvatlash",
+    ],
   },
 ];
 
@@ -152,7 +152,9 @@ const SubscriptionPage = () => {
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-700 font-medium">Tugash sanasi:</span>
+                <span className="text-gray-700 font-medium">
+                  Tugash sanasi:
+                </span>
                 <span className="font-semibold text-gray-900">{expires}</span>
               </div>
             </div>
@@ -196,7 +198,7 @@ const SubscriptionPage = () => {
           </h1>
 
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-           {` O'zingizga`} mos rejani tanlang va chegirmalar bilan foydalaning. 
+            {` O'zingizga`} mos rejani tanlang va chegirmalar bilan foydalaning.
             Barcha rejalar soliqlarsiz, 30 kunlik pulni qaytarish kafolati.
           </p>
         </div>
@@ -214,15 +216,15 @@ const SubscriptionPage = () => {
                 className={`
                   group relative bg-white rounded-3xl p-6 shadow-lg 
                   hover:shadow-2xl hover:-translate-y-2 transition-all duration-500
-                  border-2 ${isBestValue ? 'border-purple-500 shadow-xl' : 'border-gray-200/60'}
-                  ${isPopular ? 'ring-2 ring-purple-400 ring-opacity-50' : ''}
+                  border-2 ${isBestValue ? "border-purple-500 shadow-xl" : "border-gray-200/60"}
+                  ${isPopular ? "ring-2 ring-purple-400 ring-opacity-50" : ""}
                   flex flex-col h-full
                 `}
               >
                 {/* Badge */}
                 {isBestValue && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-1">
+                    <div className="bg-gradient-to-r w-52 flex items-center justify-center from-yellow-400 to-orange-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg gap-1">
                       <Crown className="w-3 h-3" />
                       Eng Yaxshi Taklif
                     </div>
@@ -248,9 +250,7 @@ const SubscriptionPage = () => {
                   <h3 className="text-2xl font-bold text-gray-900 mb-1">
                     {plan.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">
-                    {plan.duration} obuna
-                  </p>
+                  <p className="text-gray-500 text-sm">{plan.duration} obuna</p>
                 </div>
 
                 {/* Price Section */}
@@ -271,7 +271,9 @@ const SubscriptionPage = () => {
                     <span className="text-3xl font-bold text-gray-900">
                       ${plan.price}
                     </span>
-                    <span className="text-gray-500 text-sm">/ {plan.duration.toLowerCase()}</span>
+                    <span className="text-gray-500 text-sm">
+                      / {plan.duration.toLowerCase()}
+                    </span>
                   </div>
                 </div>
 
@@ -298,7 +300,9 @@ const SubscriptionPage = () => {
                     </div>
                     <div className="flex items-center gap-1 text-purple-700">
                       <Users className="w-4 h-4" />
-                      <span>{plan.branch} {`bo'lim`}</span>
+                      <span>
+                        {plan.branch} {`bo'lim`}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -314,7 +318,7 @@ const SubscriptionPage = () => {
                     transition-all duration-300 shadow-lg hover:shadow-xl
                     transform hover:scale-[1.02] active:scale-[0.98]
                     ${loading && selected === plan.id ? "opacity-50 cursor-not-allowed" : ""}
-                    ${isBestValue ? 'from-blue-500 to-purple-500 hover:from-yellow-600 hover:to-orange-600' : ''}
+                    ${isBestValue ? "from-blue-500 to-purple-500 hover:from-yellow-600 hover:to-orange-600" : ""}
                   `}
                 >
                   {loading && selected === plan.id ? (
@@ -341,7 +345,9 @@ const SubscriptionPage = () => {
             <div className="w-px h-6 bg-gray-300"></div>
             <div className="flex items-center gap-2 text-blue-600">
               <Headphones className="w-5 h-5" />
-              <span className="text-sm font-medium">24/7 {`Qo'llab`}-quvvatlash</span>
+              <span className="text-sm font-medium">
+                24/7 {`Qo'llab`}-quvvatlash
+              </span>
             </div>
             <div className="w-px h-6 bg-gray-300"></div>
             <div className="flex items-center gap-2 text-purple-600">
