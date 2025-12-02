@@ -8,7 +8,7 @@ export const API_ENDPOINT = {
   VERIFY_TOKEN: "/auth/verify/admin/token",
 
   // Channels
-  ALL_CHANNELS: "/chanel/all",
+  ALL_CHANNELS: "/chanel",
   CREATE_CHANNEL: (id: string) => `/chanel/${id}`,
   GET_CHANNEL_BY_ID: (id: string) => `/chanel/${id}`,
   UPDATE_CHANNEL: (id: string) => ``,

@@ -1,6 +1,6 @@
 import authService from "@/app/api/service/auth.service";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface User {
   id: string;
@@ -12,7 +12,7 @@ const useAuth = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       const token =
@@ -24,8 +24,7 @@ const useAuth = () => {
 
       try {
         const fullUser = await authService.verifyToken(token);
-        console.log(fullUser.data);
-        
+
         setUser(fullUser.data);
       } catch (err) {
         console.error("Token verify error:", err);

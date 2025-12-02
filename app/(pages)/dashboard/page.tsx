@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Lock,
   School,
@@ -9,6 +9,8 @@ import {
   KeyRound,
 } from "lucide-react";
 import useAuth from "@/hooks/useAuth";
+import useSubscription from "@/hooks/useSubscription";
+import channel from "@/app/api/service/channel.service";
 
 interface SchoolType {
   id: number;
@@ -35,8 +37,7 @@ interface Comment {
 
 const DashboardPage = () => {
   const { user } = useAuth();
-  console.log(user);
-  
+
   const [selectedSchool, setSelectedSchool] = useState<SchoolType | null>(null);
   const [unlockedSchools, setUnlockedSchools] = useState<number[]>([]);
   const [passwordInput, setPasswordInput] = useState("");
@@ -46,30 +47,21 @@ const DashboardPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<string>("Barchasi");
   const [unlockedTests, setUnlockedTests] = useState<number[]>([]);
-  const [testPasswordInput, setTestPasswordInput] = useState<number | null>(null);
-  const [testPasswordValue, setTestPasswordValue] = useState("");
+  const [schools, setSchools] = useState([]);
 
-  const schools: SchoolType[] = [
-    {
-      id: 1,
-      name: "TATU Maktabi",
-      description: "IT yo‘nalishidagi testlar",
-      locked: false,
-    },
-    {
-      id: 2,
-      name: "Nukus Akademik Litseyi",
-      description: "Matematika testlari",
-      locked: true,
-      password: "9999",
-    },
-    {
-      id: 3,
-      name: "Fizika Maktabi",
-      description: "Fizika faniga oid testlar",
-      locked: false,
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await channel.getAll();
+      console.log(res);
+    };
+    fetchData();
+  }, []);
+
+  const [testPasswordInput, setTestPasswordInput] = useState<number | null>(
+    null
+  );
+  const [testPasswordValue, setTestPasswordValue] = useState("");
+  useSubscription();
 
   const tests: TestType[] = [
     {
@@ -111,16 +103,14 @@ const DashboardPage = () => {
     },
   ];
 
-  // 🏫 Maktabni tanlash
   const handleEnterSchool = (school: SchoolType) => {
     if (!school.locked || unlockedSchools.includes(school.id)) {
       setSelectedSchool(school);
     } else {
-      setSelectedSchool(school); // Parol oynasi chiqadi
+      setSelectedSchool(school);
     }
   };
 
-  // 🔐 Maktab parolini tekshirish
   const handleUnlockSchool = () => {
     if (selectedSchool && passwordInput === selectedSchool.password) {
       setUnlockedSchools([...unlockedSchools, selectedSchool.id]);
@@ -131,7 +121,6 @@ const DashboardPage = () => {
     }
   };
 
-  // 💬 Izoh qo‘shish
   const handleAddComment = () => {
     if (commentText.trim().length === 0) return;
     const newComment: Comment = {
@@ -143,10 +132,12 @@ const DashboardPage = () => {
     setCommentText("");
   };
 
-  // 🔎 Testlar filtr
   const filteredTests = tests.filter((test) => {
-    const matchesSearch = test.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLevel = selectedLevel === "Barchasi" ? true : test.level === selectedLevel;
+    const matchesSearch = test.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesLevel =
+      selectedLevel === "Barchasi" ? true : test.level === selectedLevel;
     return matchesSearch && matchesLevel;
   });
 
@@ -161,7 +152,12 @@ const DashboardPage = () => {
       alert("Test paroli noto‘g‘ri ❌");
     }
   };
+  console.log(
+    "%cSavolchi",
+    "color: #ff00ff; font-size: 50px; font-weight: bold; text-shadow: 3px 3px #000;"
+  );
 
+  console.log("%cCreated By Boburov ❤️", "font-size: 30px; color: #61dafb;");
   return (
     <div className="bg-gray-50">
       <div className="container mx-auto py-10 px-4 border-x  border-gray-300 min-h-[80vh] ">
@@ -169,153 +165,14 @@ const DashboardPage = () => {
         <div className="mb-10">
           <h1 className="text-3xl font-semibold text-purple-700">
             Xush kelibsiz,{" "}
-            <span className="text-gray-800">{user?.name || "Foydalanuvchi"} 👋</span>
+            <span className="text-gray-800">
+              {user?.name || "Foydalanuvchi"} 👋
+            </span>
           </h1>
           <p className="text-gray-500 mt-2">
             Quyidagi maktablardan birini tanlang va o‘rganishni davom eting.
           </p>
         </div>
-
-        {/* 📚 Maktablar yoki testlar */}
-        {!selectedSchool ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {schools.map((school) => (
-              <div
-                key={school.id}
-                onClick={() => handleEnterSchool(school)}
-                className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition cursor-pointer hover:border-purple-300"
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <div className="flex items-center gap-2">
-                    <School size={22} className="text-purple-700" />
-                    <h2 className="font-semibold text-gray-800">{school.name}</h2>
-                  </div>
-                  {school.locked ? (
-                    <Lock className="text-red-500" size={18} />
-                  ) : (
-                    <Unlock className="text-green-500" size={18} />
-                  )}
-                </div>
-                <p className="text-sm text-gray-600">{school.description}</p>
-                {school.locked && !unlockedSchools.includes(school.id) && (
-                  <p className="text-xs text-gray-400 mt-2">
-                    🔒 Parol talab qilinadi
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : selectedSchool.locked && !unlockedSchools.includes(selectedSchool.id) ? (
-          // 🔑 Maktab parolini so‘rash
-          <div className="p-6 bg-white rounded-2xl shadow text-center">
-            <h2 className="text-xl font-bold text-gray-800 mb-3">
-              {selectedSchool.name} — yopiq maktab
-            </h2>
-            <p className="text-gray-500 mb-4">Kirish uchun parolni kiriting</p>
-            <div className="flex justify-center gap-2">
-              <input
-                type="password"
-                placeholder="Parol..."
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              />
-              <button
-                onClick={handleUnlockSchool}
-                className="bg-purple-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-purple-800 transition"
-              >
-                Kirish
-              </button>
-            </div>
-          </div>
-        ) : (
-          // 📘 Testlar ro‘yxati
-          <div className="bg-white rounded-2xl shadow p-6 border border-gray-100">
-            <button
-              onClick={() => setSelectedSchool(null)}
-              className="text-sm text-purple-700 hover:underline mb-4"
-            >
-              ← Orqaga qaytish
-            </button>
-
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">
-              {selectedSchool.name}
-            </h2>
-
-            {/* 🔍 Qidiruv va filter */}
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-3">
-              <div className="relative w-full sm:w-1/2">
-                <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-                <input
-                  type="text"
-                  placeholder="Testlarni qidiring..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-3 py-2 border rounded-lg w-full text-sm focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                />
-              </div>
-              <select
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-                className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              >
-                <option value="Barchasi">Barcha darajalar</option>
-                <option value="Boshlang‘ich">Boshlang‘ich</option>
-                <option value="O‘rta">O‘rta</option>
-                <option value="Murakkab">Murakkab</option>
-              </select>
-            </div>
-
-            {/* 🧠 Testlar */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-              {filteredTests.map((test) => (
-                <div
-                  key={test.id}
-                  className="p-4 bg-purple-50 hover:bg-purple-100 transition rounded-xl border border-purple-100"
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="font-semibold text-gray-800">{test.title}</h4>
-                    {test.private && !unlockedTests.includes(test.id) && (
-                      <KeyRound className="text-red-500" size={18} />
-                    )}
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span className="bg-purple-200 text-purple-800 px-2 py-0.5 rounded-md text-xs font-medium">
-                      {test.level}
-                    </span>
-                    <span>👥 {test.participants} ta ishtirokchi</span>
-                  </div>
-
-                  {/* 🔒 Private test uchun parol */}
-                  {test.private && !unlockedTests.includes(test.id) && (
-                    <div className="mt-3 flex flex-col gap-2">
-                      <input
-                        type="password"
-                        placeholder="Test paroli..."
-                        value={
-                          testPasswordInput === test.id
-                            ? testPasswordValue
-                            : ""
-                        }
-                        onChange={(e) => {
-                          setTestPasswordInput(test.id);
-                          setTestPasswordValue(e.target.value);
-                        }}
-                        className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                      />
-                      <button
-                        onClick={() => handleUnlockTest(test.id, test.password)}
-                        className="bg-purple-700 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-purple-800 transition"
-                      >
-                        Tasdiqlash
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

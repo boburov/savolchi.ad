@@ -83,7 +83,7 @@ export default function AdminDashboard() {
     sub.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(filteredSubjects)
+  console.log(filteredSubjects);
   if (!admin?.subscription?.active) {
     return (
       <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center px-6">
@@ -232,7 +232,7 @@ export default function AdminDashboard() {
                 className="p-10 bg-white rounded-3xl shadow border-2 border-dashed border-gray-300 hover:border-purple-400 cursor-pointer flex flex-col items-center justify-center transition-all"
               >
                 <Plus className="w-14 h-14 text-gray-400" />
-                <p className="mt-4 font-medium text-gray-600">Yangi bo'lim</p>
+                <p className="mt-4 font-medium text-gray-600 text-sm">{`Yangi bo'lim`}</p>
               </motion.div>
             )}
           </div>
