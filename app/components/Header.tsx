@@ -114,7 +114,7 @@ const Header = () => {
             </button>
 
             {open && (
-              <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden animate-fadeIn">
+              <div className="absolute z-20 right-0 mt-2 w-56 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden animate-fadeIn">
                 <div className="px-4 py-2 border-b bg-purple-50 text-purple-700 font-semibold">
                   {user?.name || "Foydalanuvchi"}
                 </div>

@@ -11,7 +11,7 @@ export const API_ENDPOINT = {
   ALL_CHANNELS: "/chanel",
   CREATE_CHANNEL: (id: string) => `/chanel/${id}`,
   GET_CHANNEL_BY_ID: (id: string) => `/chanel/${id}`,
-  UPDATE_CHANNEL: (id: string) => ``,
+  UPDATE_CHANNEL: (id: string) => `chanel/${id}`,
   DELETE_CHANNEL: (id: string) => ``,
 
   // Subjects

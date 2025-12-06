@@ -1,6 +1,11 @@
 import api from "../axios";
 import { API_ENDPOINT } from "../endpoin";
 
+interface Type {
+  PRIVATE: string;
+  PUBLIC: string;
+}
+
 const subject = {
   getAll: async () => {
     const res = await api.get(API_ENDPOINT.ALL_SUBJECTS);
@@ -22,7 +27,7 @@ const subject = {
     return res.data;
   },
 
-  create: async (data: { name: string; channelId: string }) => {
+  create: async (data: { type: string; name: string; channelId: string }) => {
     const res = await api.post(API_ENDPOINT.CREATE_SUBJECT, data);
     return res.data;
   },
